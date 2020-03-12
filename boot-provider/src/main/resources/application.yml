@@ -13,6 +13,8 @@ dubbo:
     port: 20880
   monitor:
     protocol: registry
+  provider:
+    timeout: 60000
 
 spring:
   datasource:
@@ -37,3 +39,25 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
+  mail:
+    host: smtp.qq.com
+    username: 993874575@qq.com
+    password: nvfrmoojeozqbdia
+    default-encoding: UTF-8
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: a123
+      #指定最小的消费者数量
+    listener:
+      simple:
+        concurrency: 5
+        max-concurrency: 10
+        # 指定Acknowledge的模式，我这里是手工确认的
+        acknowledge-mode: manual
+        # 指定一个请求能处理多少个消息，如果有事务的话，必须大于等于transaction数量
+        prefetch: 1
+      #指定最大的消费者数量
+      #指定连接到broker的virtual host
+    virtual-host: /

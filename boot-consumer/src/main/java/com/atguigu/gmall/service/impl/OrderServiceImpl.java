@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Reference(version = "*")
+    @Reference(version = "2.0.0")
     UserService userService;
 
     @Override

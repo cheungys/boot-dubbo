@@ -1,0 +1,13 @@
+server:
+  port: 8081
+dubbo:
+  application:
+    name: boot-consumer
+  registry:
+    protocol: zookeeper
+    address: 127.0.0.1:2181
+  monitor:
+    protocol: registry
+  consumer:
+    timeout: 60000
+    check: false
