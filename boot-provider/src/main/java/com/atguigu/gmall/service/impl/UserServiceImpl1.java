@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Service(version = "1.0.0")
 @Component
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl1 implements UserService{
 
 	@HystrixCommand
 	@Override

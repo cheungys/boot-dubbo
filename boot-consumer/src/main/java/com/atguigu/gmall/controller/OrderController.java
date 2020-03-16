@@ -4,9 +4,11 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.gmall.bean.EmailSender;
 import com.atguigu.gmall.bean.Message;
 import com.atguigu.gmall.bean.UserAddress;
+import com.atguigu.gmall.bean.user.UserEntity;
 import com.atguigu.gmall.service.OrderService;
 import com.atguigu.gmall.service.email.SendEmailService;
 import com.atguigu.gmall.service.message.SendMessageService;
+import com.atguigu.gmall.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public class OrderController {
     SendMessageService sendMessageService;
     @Reference
     SendEmailService sendEmailService;
+    @Reference
+    UserService userService;
+
     @RequestMapping("initOrder")
     @ResponseBody
     public List<UserAddress> initOrder(@RequestParam("uid") String uid) {
@@ -52,15 +57,16 @@ public class OrderController {
         message.setContent("78t9re");
         message.setReceives("15626183846");
         boolean resu = sendMessageService.sendMessage(message);
-        logger.info("远程调用结果"+resu);
-        if (resu){
+        logger.info("远程调用结果" + resu);
+        if (resu) {
             return "66666666666666666";
         }
         return "失败了";
     }
+
     @RequestMapping("sendEmail")
     @ResponseBody
-    public String sendEmail(){
+    public String sendEmail() {
         EmailSender emailSend = new EmailSender();
         emailSend.setId("111");
         emailSend.setContent("最后终结者 测试内容");
@@ -69,5 +75,20 @@ public class OrderController {
 
         sendEmailService.sendEmail(emailSend);
         return "66666";
+    }
+
+    @RequestMapping("getUser")
+    @ResponseBody
+    public List<UserEntity> getUser() {
+        List<UserEntity> userEntityList = userService.list();
+        if (!userEntityList.isEmpty()) {
+            System.out.println("查询结果如下：");
+            for (UserEntity userEntity : userEntityList) {
+                System.out.println(userEntity.toString());
+            }
+        } else {
+            System.out.println("空的查询无结果");
+        }
+        return userEntityList;
     }
 }
